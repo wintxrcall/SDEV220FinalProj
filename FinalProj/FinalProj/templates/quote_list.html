@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+    <title>Quote Query Response</title>
+</head>
+<body>
+<h1>Quotes Requiring Verification</h1>
+
+{% if require_verif_quotes %}
+    <table>
+        <tr>
+            <th>Client Name</th>
+            <th>Client Salary</th>
+            <th>Client Email</th>
+            <th>Client Phone</th>
+            <th>Quote Type</th>
+        </tr>
+        {% for verify_quote in require_verif_quotes %}
+            <tr>
+                <td>{{ verify_quote.quote.client_name }}</td>
+                <td>{{ verify_quote.quote.yearly_salary }}</td>
+                <td>{{ verify_quote.quote.client_email }}</td>
+                <td>{{ verify_quote.quote.client_phone }}</td>
+                <td>{{ verify_quote.quote.quote_type }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+{% else %}
+    <p>No quotes requiring verification found.</p>
+{% endif %}
+<h1>Query Quotes</h1>
+    <form method="GET">
+        {{ form.as_p }}
+        <button type="submit">Submit</button>
+    </form>
+<hr>
+<h2>Queried Quotes for viewing:</h2>
+<ul>
+    {% for quote in quotes %}
+        <li>Client Name: {{ quote.client_name }}
+            <br>
+            Client Salary: {{ quote.yearly_salary }}
+            <br>
+            Client Email: {{ quote.client_email }}
+            <br>
+            Client Phone: {{ quote.client_phone }}
+            <br>
+            Client Quote Type Chosen: {{ quote.quote_type }}
+        </li>
+    {% endfor %}
+</ul>
+</body>
+</html>
